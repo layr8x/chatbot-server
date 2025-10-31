@@ -43,10 +43,13 @@ export default async function handler(req, res) {
 
     // OpenAI REST 호출 (프로젝트 헤더 포함)
     const headers = {
-      "Authorization": `Bearer ${OPENAI_API_KEY}`,
-      "Content-Type": "application/json"
-    };
-    if (OPENAI_PROJECT_ID) headers["OpenAI-Project"] = OPENAI_PROJECT_ID;
+  "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+  "Content-Type": "application/json"
+};
+if (process.env.OPENAI_PROJECT_ID) {
+  headers["OpenAI-Project"] = process.env.OPENAI_PROJECT_ID;
+}
+
 
     const oa = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
